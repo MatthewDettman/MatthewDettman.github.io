@@ -1,0 +1,28 @@
+.dygraph-title {
+  color: black;
+  font-weight: bold;
+}
+.dygraph-axis-label {
+  color: black;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.dygraph-axis-label-x  {
+  color: black;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.dygraph-axis-label-y  {
+  color: black;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+
+.dygraph-label .dygraph-xlabel {
+  color: black;
+  font-weight: bold;
+  font-size: 12px;
+}

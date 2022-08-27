@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>CPI Data</title>
+
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Matthew Dettman, ChFC, CLU</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Main
+  </a>
+</li>
+<li>
+  <a href="resume.html">
+    <span class="fa fa-user"></span>
+     
+    Resume
+  </a>
+</li>
+<li>
+  <a href="Projects.html">
+    <span class="fa fa-infinity"></span>
+     
+    Projects
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="mailto:matthew.dettman@gmail.com">
+    <span class="fa fa-envelope-o"></span>
+     
+    Email
+  </a>
+</li>
+<li>
+  <a href="https://github.com/MatthewDettman">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
+<li>
+  <a href="https://www.linkedin.com/in/matthewdettman/">
+    <span class="fa fa-linkedin"></span>
+     
+    LinkedIn
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">CPI Data</h1>
+
+</div>
+
+
+<div id="htmlwidget-97e8a6239e2c01ecbfd4" style="width:960px;height:576px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-97e8a6239e2c01ecbfd4">{"x":{"data":[{"orientation":"v","width":[25.1999999999971,25.1999999999971,25.1999999999971,25.1999999999971,25.1999999999971,25.1999999999971,25.1999999999971,25.1999999999971,25.1999999999971,25.1999999999971,25.1999999999971,25.1999999999971,25.1999999999971,25.1999999999971,25.1999999999971],"base":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"x":[18748,18779,18809,18840,18871,18901,18932,18962,18993,19024,19052,19083,19113,19144,19174],"y":[5,5.4,5.4,5.3,5.4,6.2,6.8,7,7.5,7.9,8.5,8.3,8.6,9.1,8.5],"text":["Date: 2021-05-01<br />PercentChange: 5.0","Date: 2021-06-01<br />PercentChange: 5.4","Date: 2021-07-01<br />PercentChange: 5.4","Date: 2021-08-01<br />PercentChange: 5.3","Date: 2021-09-01<br />PercentChange: 5.4","Date: 2021-10-01<br />PercentChange: 6.2","Date: 2021-11-01<br />PercentChange: 6.8","Date: 2021-12-01<br />PercentChange: 7.0","Date: 2022-01-01<br />PercentChange: 7.5","Date: 2022-02-01<br />PercentChange: 7.9","Date: 2022-03-01<br />PercentChange: 8.5","Date: 2022-04-01<br />PercentChange: 8.3","Date: 2022-05-01<br />PercentChange: 8.6","Date: 2022-06-01<br />PercentChange: 9.1","Date: 2022-07-01<br />PercentChange: 8.5"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(39,128,227,1)","line":{"width":1.88976377952756,"color":"rgba(39,128,227,1)"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":96.5263725595944,"r":37.7952755905512,"b":133.811548417877,"l":69.4639197497573},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(44,62,80,1)","family":"","size":14.6118721461187},"title":{"text":"<b> Consumer Price Index for All Urban Consumers: All Items <\/b>","font":{"color":"rgba(44,62,80,1)","family":"","size":17.5342465753425},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[18712.84,19209.16],"tickmode":"array","ticktext":["Apr 21","May 21","Jun 21","Jul 21","Aug 21","Sep 21","Oct 21","Nov 21","Dec 21","Jan 22","Feb 22","Mar 22","Apr 22","May 22","Jun 22","Jul 22","Aug 22"],"tickvals":[18718,18748,18779,18809,18840,18871,18901,18932,18962,18993,19024,19052,19083,19113,19144,19174,19205],"categoryorder":"array","categoryarray":["Apr 21","May 21","Jun 21","Jul 21","Aug 21","Sep 21","Oct 21","Nov 21","Dec 21","Jan 22","Feb 22","Mar 22","Apr 22","May 22","Jun 22","Jul 22","Aug 22"],"nticks":null,"ticks":"outside","tickcolor":"rgba(204,204,204,1)","ticklen":3.65296803652968,"tickwidth":0.22139200221392,"showticklabels":true,"tickfont":{"color":"rgba(44,62,80,1)","family":"","size":11.689497716895},"tickangle":-40,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(204,204,204,1)","gridwidth":0.22139200221392,"zeroline":false,"anchor":"y","title":{"text":"","font":{"color":null,"family":null,"size":0}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.455,9.555],"tickmode":"array","ticktext":["0","1","2","3","4","5","6","7","8","9"],"tickvals":[0,1,2,3,4,5,6,7,8,9],"categoryorder":"array","categoryarray":["0","1","2","3","4","5","6","7","8","9"],"nticks":null,"ticks":"outside","tickcolor":"rgba(204,204,204,1)","ticklen":3.65296803652968,"tickwidth":0.22139200221392,"showticklabels":true,"tickfont":{"color":"rgba(44,62,80,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(204,204,204,1)","gridwidth":0.22139200221392,"zeroline":false,"anchor":"x","title":{"text":"Year-Over-Year Percentage Change","font":{"color":"rgba(44,62,80,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":"transparent","line":{"color":"rgba(44,62,80,1)","width":0.33208800332088,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(44,62,80,1)","family":"","size":11.689497716895}},"hovermode":"closest","barmode":"relative","annotations":[{"x":1,"y":-0.1,"text":"Not Seasonally Adjusted, Source: U.S. Bureau of Labor Statistics (fred.stlouisfed.org)","showarrow":false,"xref":"paper","yref":"paper","xanchor":"bottom","yanchor":"bottom","xshift":0,"yshift":-35,"font":{"size":9,"color":"black"}},{"x":1,"y":-0.1,"text":"Not Seasonally Adjusted, Source: U.S. Bureau of Labor Statistics (fred.stlouisfed.org)","showarrow":false,"xref":"paper","yref":"paper","xanchor":"bottom","yanchor":"bottom","xshift":0,"yshift":-35,"font":{"size":9,"color":"black"}}]},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"dd846f527cb":{"x":{},"y":{},"colour":{},"type":"bar"}},"cur_data":"dd846f527cb","visdat":{"dd846f527cb":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<ul>
+<li><a href="https://fred.stlouisfed.org/series/CPIAUCNS">Consumer Price
+Index for All Urban Consumers: All Items in U.S. City Average</a></li>
+</ul>
+<p><br/></p>
+<p><br/></p>
+<div id="htmlwidget-c513d789d73708fd42d7" style="width:960px;height:576px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c513d789d73708fd42d7">{"x":{"data":[{"x":[18017,18048,18078,18109,18140,18170,18201,18231,18262,18293,18322,18353,18383,18414,18444,18475,18506,18536,18567,18597,18628,18659,18687,18718,18748,18779,18809,18840,18871,18901,18932,18962,18993,19024,19052,19083,19113,19144,19174],"y":[-3.1,-1.3,-0.5,1,-0.3,-2.3,-1.6,-1.2,-1.3,-0.9,-1.6,-5.7,-7.9,-7.3,-6.5,-5.9,-6,-5.5,-5.2,-3.9,-2.5,-3.6,-2.5,1.9,5.6,4.9,4.2,4.2,3.4,4.3,5,5.8,5.3,6.6,6.8,5.4,5,5.2,5.1],"text":["Date: 2019-05-01<br />PercentChange:  -3.1<br />IndexName: Apparel","Date: 2019-06-01<br />PercentChange:  -1.3<br />IndexName: Apparel","Date: 2019-07-01<br />PercentChange:  -0.5<br />IndexName: Apparel","Date: 2019-08-01<br />PercentChange:   1.0<br />IndexName: Apparel","Date: 2019-09-01<br />PercentChange:  -0.3<br />IndexName: Apparel","Date: 2019-10-01<br />PercentChange:  -2.3<br />IndexName: Apparel","Date: 2019-11-01<br />PercentChange:  -1.6<br />IndexName: Apparel","Date: 2019-12-01<br />PercentChange:  -1.2<br />IndexName: Apparel","Date: 2020-01-01<br />PercentChange:  -1.3<br />IndexName: Apparel","Date: 2020-02-01<br />PercentChange:  -0.9<br />IndexName: Apparel","Date: 2020-03-01<br />PercentChange:  -1.6<br />IndexName: Apparel","Date: 2020-04-01<br />PercentChange:  -5.7<br />IndexName: Apparel","Date: 2020-05-01<br />PercentChange:  -7.9<br />IndexName: Apparel","Date: 2020-06-01<br />PercentChange:  -7.3<br />IndexName: Apparel","Date: 2020-07-01<br />PercentChange:  -6.5<br />IndexName: Apparel","Date: 2020-08-01<br />PercentChange:  -5.9<br />IndexName: Apparel","Date: 2020-09-01<br />PercentChange:  -6.0<br />IndexName: Apparel","Date: 2020-10-01<br />PercentChange:  -5.5<br />IndexName: Apparel","Date: 2020-11-01<br />PercentChange:  -5.2<br />IndexName: Apparel","Date: 2020-12-01<br />PercentChange:  -3.9<br />IndexName: Apparel","Date: 2021-01-01<br />PercentChange:  -2.5<br />IndexName: Apparel","Date: 2021-02-01<br />PercentChange:  -3.6<br />IndexName: Apparel","Date: 2021-03-01<br />PercentChange:  -2.5<br />IndexName: Apparel","Date: 2021-04-01<br />PercentChange:   1.9<br />IndexName: Apparel","Date: 2021-05-01<br />PercentChange:   5.6<br />IndexName: Apparel","Date: 2021-06-01<br />PercentChange:   4.9<br />IndexName: Apparel","Date: 2021-07-01<br />PercentChange:   4.2<br />IndexName: Apparel","Date: 2021-08-01<br />PercentChange:   4.2<br />IndexName: Apparel","Date: 2021-09-01<br />PercentChange:   3.4<br />IndexName: Apparel","Date: 2021-10-01<br />PercentChange:   4.3<br />IndexName: Apparel","Date: 2021-11-01<br />PercentChange:   5.0<br />IndexName: Apparel","Date: 2021-12-01<br />PercentChange:   5.8<br />IndexName: Apparel","Date: 2022-01-01<br />PercentChange:   5.3<br />IndexName: Apparel","Date: 2022-02-01<br />PercentChange:   6.6<br />IndexName: Apparel","Date: 2022-03-01<br />PercentChange:   6.8<br />IndexName: Apparel","Date: 2022-04-01<br />PercentChange:   5.4<br />IndexName: Apparel","Date: 2022-05-01<br />PercentChange:   5.0<br />IndexName: Apparel","Date: 2022-06-01<br />PercentChange:   5.2<br />IndexName: Apparel","Date: 2022-07-01<br />PercentChange:   5.1<br />IndexName: Apparel"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(248,118,109,1)","dash":"solid"},"hoveron":"points","name":"Apparel","legendgroup":"Apparel","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[18017,18048,18078,18109,18140,18170,18201,18231,18262,18293,18322,18353,18383,18414,18444,18475,18506,18536,18567,18597,18628,18659,18687,18718,18748,18779,18809,18840,18871,18901,18932,18962,18993,19024,19052,19083,19113,19144,19174],"y":[0.7,0.6,0.6,0.6,0.4,0.5,1.4,1.4,1.5,1.5,1.5,1.6,1.6,1.4,2.3,2.3,2.1,2.1,1.9,2,1.7,1.7,1.5,1.7,1.9,2.1,1.1,1.2,1.7,1.8,1.7,1.6,1.6,1.6,1.5,1,0.8,0.8,0.5],"text":["Date: 2019-05-01<br />PercentChange:   0.7<br />IndexName: Education and Communication","Date: 2019-06-01<br />PercentChange:   0.6<br />IndexName: Education and Communication","Date: 2019-07-01<br />PercentChange:   0.6<br />IndexName: Education and Communication","Date: 2019-08-01<br />PercentChange:   0.6<br />IndexName: Education and Communication","Date: 2019-09-01<br />PercentChange:   0.4<br />IndexName: Education and Communication","Date: 2019-10-01<br />PercentChange:   0.5<br />IndexName: Education and Communication","Date: 2019-11-01<br />PercentChange:   1.4<br />IndexName: Education and Communication","Date: 2019-12-01<br />PercentChange:   1.4<br />IndexName: Education and Communication","Date: 2020-01-01<br />PercentChange:   1.5<br />IndexName: Education and Communication","Date: 2020-02-01<br />PercentChange:   1.5<br />IndexName: Education and Communication","Date: 2020-03-01<br />PercentChange:   1.5<br />IndexName: Education and Communication","Date: 2020-04-01<br />PercentChange:   1.6<br />IndexName: Education and Communication","Date: 2020-05-01<br />PercentChange:   1.6<br />IndexName: Education and Communication","Date: 2020-06-01<br />PercentChange:   1.4<br />IndexName: Education and Communication","Date: 2020-07-01<br />PercentChange:   2.3<br />IndexName: Education and Communication","Date: 2020-08-01<br />PercentChange:   2.3<br />IndexName: Education and Communication","Date: 2020-09-01<br />PercentChange:   2.1<br />IndexName: Education and Communication","Date: 2020-10-01<br />PercentChange:   2.1<br />IndexName: Education and Communication","Date: 2020-11-01<br />PercentChange:   1.9<br />IndexName: Education and Communication","Date: 2020-12-01<br />PercentChange:   2.0<br />IndexName: Education and Communication","Date: 2021-01-01<br />PercentChange:   1.7<br />IndexName: Education and Communication","Date: 2021-02-01<br />PercentChange:   1.7<br />IndexName: Education and Communication","Date: 2021-03-01<br />PercentChange:   1.5<br />IndexName: Education and Communication","Date: 2021-04-01<br />PercentChange:   1.7<br />IndexName: Education and Communication","Date: 2021-05-01<br />PercentChange:   1.9<br />IndexName: Education and Communication","Date: 2021-06-01<br />PercentChange:   2.1<br />IndexName: Education and Communication","Date: 2021-07-01<br />PercentChange:   1.1<br />IndexName: Education and Communication","Date: 2021-08-01<br />PercentChange:   1.2<br />IndexName: Education and Communication","Date: 2021-09-01<br />PercentChange:   1.7<br />IndexName: Education and Communication","Date: 2021-10-01<br />PercentChange:   1.8<br />IndexName: Education and Communication","Date: 2021-11-01<br />PercentChange:   1.7<br />IndexName: Education and Communication","Date: 2021-12-01<br />PercentChange:   1.6<br />IndexName: Education and Communication","Date: 2022-01-01<br />PercentChange:   1.6<br />IndexName: Education and Communication","Date: 2022-02-01<br />PercentChange:   1.6<br />IndexName: Education and Communication","Date: 2022-03-01<br />PercentChange:   1.5<br />IndexName: Education and Communication","Date: 2022-04-01<br />PercentChange:   1.0<br />IndexName: Education and Communication","Date: 2022-05-01<br />PercentChange:   0.8<br />IndexName: Education and Communication","Date: 2022-06-01<br />PercentChange:   0.8<br />IndexName: Education and Communication","Date: 2022-07-01<br />PercentChange:   0.5<br />IndexName: Education and Communication"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(205,150,0,1)","dash":"solid"},"hoveron":"points","name":"Education and Communication","legendgroup":"Education and Communication","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[18017,18048,18078,18109,18140,18170,18201,18231,18262,18293,18322,18353,18383,18414,18444,18475,18506,18536,18567,18597,18628,18659,18687,18718,18748,18779,18809,18840,18871,18901,18932,18962,18993,19024,19052,19083,19113,19144,19174],"y":[2,1.9,1.8,1.7,1.8,2,1.9,1.7,1.7,1.7,1.9,3.4,3.9,4.4,3.9,4,3.8,3.8,3.7,3.8,3.7,3.5,3.4,2.3,2.1,2.4,3.4,3.7,4.5,5.1,5.8,6,6.7,7.6,8.5,9,9.7,10,10.5],"text":["Date: 2019-05-01<br />PercentChange:   2.0<br />IndexName: Food and Beverages","Date: 2019-06-01<br />PercentChange:   1.9<br />IndexName: Food and Beverages","Date: 2019-07-01<br />PercentChange:   1.8<br />IndexName: Food and Beverages","Date: 2019-08-01<br />PercentChange:   1.7<br />IndexName: Food and Beverages","Date: 2019-09-01<br />PercentChange:   1.8<br />IndexName: Food and Beverages","Date: 2019-10-01<br />PercentChange:   2.0<br />IndexName: Food and Beverages","Date: 2019-11-01<br />PercentChange:   1.9<br />IndexName: Food and Beverages","Date: 2019-12-01<br />PercentChange:   1.7<br />IndexName: Food and Beverages","Date: 2020-01-01<br />PercentChange:   1.7<br />IndexName: Food and Beverages","Date: 2020-02-01<br />PercentChange:   1.7<br />IndexName: Food and Beverages","Date: 2020-03-01<br />PercentChange:   1.9<br />IndexName: Food and Beverages","Date: 2020-04-01<br />PercentChange:   3.4<br />IndexName: Food and Beverages","Date: 2020-05-01<br />PercentChange:   3.9<br />IndexName: Food and Beverages","Date: 2020-06-01<br />PercentChange:   4.4<br />IndexName: Food and Beverages","Date: 2020-07-01<br />PercentChange:   3.9<br />IndexName: Food and Beverages","Date: 2020-08-01<br />PercentChange:   4.0<br />IndexName: Food and Beverages","Date: 2020-09-01<br />PercentChange:   3.8<br />IndexName: Food and Beverages","Date: 2020-10-01<br />PercentChange:   3.8<br />IndexName: Food and Beverages","Date: 2020-11-01<br />PercentChange:   3.7<br />IndexName: Food and Beverages","Date: 2020-12-01<br />PercentChange:   3.8<br />IndexName: Food and Beverages","Date: 2021-01-01<br />PercentChange:   3.7<br />IndexName: Food and Beverages","Date: 2021-02-01<br />PercentChange:   3.5<br />IndexName: Food and Beverages","Date: 2021-03-01<br />PercentChange:   3.4<br />IndexName: Food and Beverages","Date: 2021-04-01<br />PercentChange:   2.3<br />IndexName: Food and Beverages","Date: 2021-05-01<br />PercentChange:   2.1<br />IndexName: Food and Beverages","Date: 2021-06-01<br />PercentChange:   2.4<br />IndexName: Food and Beverages","Date: 2021-07-01<br />PercentChange:   3.4<br />IndexName: Food and Beverages","Date: 2021-08-01<br />PercentChange:   3.7<br />IndexName: Food and Beverages","Date: 2021-09-01<br />PercentChange:   4.5<br />IndexName: Food and Beverages","Date: 2021-10-01<br />PercentChange:   5.1<br />IndexName: Food and Beverages","Date: 2021-11-01<br />PercentChange:   5.8<br />IndexName: Food and Beverages","Date: 2021-12-01<br />PercentChange:   6.0<br />IndexName: Food and Beverages","Date: 2022-01-01<br />PercentChange:   6.7<br />IndexName: Food and Beverages","Date: 2022-02-01<br />PercentChange:   7.6<br />IndexName: Food and Beverages","Date: 2022-03-01<br />PercentChange:   8.5<br />IndexName: Food and Beverages","Date: 2022-04-01<br />PercentChange:   9.0<br />IndexName: Food and Beverages","Date: 2022-05-01<br />PercentChange:   9.7<br />IndexName: Food and Beverages","Date: 2022-06-01<br />PercentChange:  10.0<br />IndexName: Food and Beverages","Date: 2022-07-01<br />PercentChange:  10.5<br />IndexName: Food and Beverages"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(124,174,0,1)","dash":"solid"},"hoveron":"points","name":"Food and Beverages","legendgroup":"Food and Beverages","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[18017,18048,18078,18109,18140,18170,18201,18231,18262,18293,18322,18353,18383,18414,18444,18475,18506,18536,18567,18597,18628,18659,18687,18718,18748,18779,18809,18840,18871,18901,18932,18962,18993,19024,19052,19083,19113,19144,19174],"y":[2.8,3,3,2.8,3,2.9,2.9,2.6,2.7,2.7,2.4,2.2,2.1,2,2,2.1,2,1.9,2,2,1.8,1.8,2.1,2.6,2.9,3.1,3.4,3.5,3.9,4.5,4.8,5.1,5.7,5.9,6.4,6.5,6.9,7.3,7.4],"text":["Date: 2019-05-01<br />PercentChange:   2.8<br />IndexName: Housing","Date: 2019-06-01<br />PercentChange:   3.0<br />IndexName: Housing","Date: 2019-07-01<br />PercentChange:   3.0<br />IndexName: Housing","Date: 2019-08-01<br />PercentChange:   2.8<br />IndexName: Housing","Date: 2019-09-01<br />PercentChange:   3.0<br />IndexName: Housing","Date: 2019-10-01<br />PercentChange:   2.9<br />IndexName: Housing","Date: 2019-11-01<br />PercentChange:   2.9<br />IndexName: Housing","Date: 2019-12-01<br />PercentChange:   2.6<br />IndexName: Housing","Date: 2020-01-01<br />PercentChange:   2.7<br />IndexName: Housing","Date: 2020-02-01<br />PercentChange:   2.7<br />IndexName: Housing","Date: 2020-03-01<br />PercentChange:   2.4<br />IndexName: Housing","Date: 2020-04-01<br />PercentChange:   2.2<br />IndexName: Housing","Date: 2020-05-01<br />PercentChange:   2.1<br />IndexName: Housing","Date: 2020-06-01<br />PercentChange:   2.0<br />IndexName: Housing","Date: 2020-07-01<br />PercentChange:   2.0<br />IndexName: Housing","Date: 2020-08-01<br />PercentChange:   2.1<br />IndexName: Housing","Date: 2020-09-01<br />PercentChange:   2.0<br />IndexName: Housing","Date: 2020-10-01<br />PercentChange:   1.9<br />IndexName: Housing","Date: 2020-11-01<br />PercentChange:   2.0<br />IndexName: Housing","Date: 2020-12-01<br />PercentChange:   2.0<br />IndexName: Housing","Date: 2021-01-01<br />PercentChange:   1.8<br />IndexName: Housing","Date: 2021-02-01<br />PercentChange:   1.8<br />IndexName: Housing","Date: 2021-03-01<br />PercentChange:   2.1<br />IndexName: Housing","Date: 2021-04-01<br />PercentChange:   2.6<br />IndexName: Housing","Date: 2021-05-01<br />PercentChange:   2.9<br />IndexName: Housing","Date: 2021-06-01<br />PercentChange:   3.1<br />IndexName: Housing","Date: 2021-07-01<br />PercentChange:   3.4<br />IndexName: Housing","Date: 2021-08-01<br />PercentChange:   3.5<br />IndexName: Housing","Date: 2021-09-01<br />PercentChange:   3.9<br />IndexName: Housing","Date: 2021-10-01<br />PercentChange:   4.5<br />IndexName: Housing","Date: 2021-11-01<br />PercentChange:   4.8<br />IndexName: Housing","Date: 2021-12-01<br />PercentChange:   5.1<br />IndexName: Housing","Date: 2022-01-01<br />PercentChange:   5.7<br />IndexName: Housing","Date: 2022-02-01<br />PercentChange:   5.9<br />IndexName: Housing","Date: 2022-03-01<br />PercentChange:   6.4<br />IndexName: Housing","Date: 2022-04-01<br />PercentChange:   6.5<br />IndexName: Housing","Date: 2022-05-01<br />PercentChange:   6.9<br />IndexName: Housing","Date: 2022-06-01<br />PercentChange:   7.3<br />IndexName: Housing","Date: 2022-07-01<br />PercentChange:   7.4<br />IndexName: Housing"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(0,190,103,1)","dash":"solid"},"hoveron":"points","name":"Housing","legendgroup":"Housing","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[18017,18048,18078,18109,18140,18170,18201,18231,18262,18293,18322,18353,18383,18414,18444,18475,18506,18536,18567,18597,18628,18659,18687,18718,18748,18779,18809,18840,18871,18901,18932,18962,18993,19024,19052,19083,19113,19144,19174],"y":[2.1,2,2.6,3.5,3.5,4.3,4.2,4.6,4.5,4.6,4.7,4.8,4.9,5.1,5,4.5,4.2,2.9,2.4,1.8,1.9,2,1.8,1.5,0.9,0.4,0.3,0.4,0.4,1.3,1.7,2.2,2.5,2.4,2.9,3.2,3.7,4.5,4.8],"text":["Date: 2019-05-01<br />PercentChange:   2.1<br />IndexName: Medical Care","Date: 2019-06-01<br />PercentChange:   2.0<br />IndexName: Medical Care","Date: 2019-07-01<br />PercentChange:   2.6<br />IndexName: Medical Care","Date: 2019-08-01<br />PercentChange:   3.5<br />IndexName: Medical Care","Date: 2019-09-01<br />PercentChange:   3.5<br />IndexName: Medical Care","Date: 2019-10-01<br />PercentChange:   4.3<br />IndexName: Medical Care","Date: 2019-11-01<br />PercentChange:   4.2<br />IndexName: Medical Care","Date: 2019-12-01<br />PercentChange:   4.6<br />IndexName: Medical Care","Date: 2020-01-01<br />PercentChange:   4.5<br />IndexName: Medical Care","Date: 2020-02-01<br />PercentChange:   4.6<br />IndexName: Medical Care","Date: 2020-03-01<br />PercentChange:   4.7<br />IndexName: Medical Care","Date: 2020-04-01<br />PercentChange:   4.8<br />IndexName: Medical Care","Date: 2020-05-01<br />PercentChange:   4.9<br />IndexName: Medical Care","Date: 2020-06-01<br />PercentChange:   5.1<br />IndexName: Medical Care","Date: 2020-07-01<br />PercentChange:   5.0<br />IndexName: Medical Care","Date: 2020-08-01<br />PercentChange:   4.5<br />IndexName: Medical Care","Date: 2020-09-01<br />PercentChange:   4.2<br />IndexName: Medical Care","Date: 2020-10-01<br />PercentChange:   2.9<br />IndexName: Medical Care","Date: 2020-11-01<br />PercentChange:   2.4<br />IndexName: Medical Care","Date: 2020-12-01<br />PercentChange:   1.8<br />IndexName: Medical Care","Date: 2021-01-01<br />PercentChange:   1.9<br />IndexName: Medical Care","Date: 2021-02-01<br />PercentChange:   2.0<br />IndexName: Medical Care","Date: 2021-03-01<br />PercentChange:   1.8<br />IndexName: Medical Care","Date: 2021-04-01<br />PercentChange:   1.5<br />IndexName: Medical Care","Date: 2021-05-01<br />PercentChange:   0.9<br />IndexName: Medical Care","Date: 2021-06-01<br />PercentChange:   0.4<br />IndexName: Medical Care","Date: 2021-07-01<br />PercentChange:   0.3<br />IndexName: Medical Care","Date: 2021-08-01<br />PercentChange:   0.4<br />IndexName: Medical Care","Date: 2021-09-01<br />PercentChange:   0.4<br />IndexName: Medical Care","Date: 2021-10-01<br />PercentChange:   1.3<br />IndexName: Medical Care","Date: 2021-11-01<br />PercentChange:   1.7<br />IndexName: Medical Care","Date: 2021-12-01<br />PercentChange:   2.2<br />IndexName: Medical Care","Date: 2022-01-01<br />PercentChange:   2.5<br />IndexName: Medical Care","Date: 2022-02-01<br />PercentChange:   2.4<br />IndexName: Medical Care","Date: 2022-03-01<br />PercentChange:   2.9<br />IndexName: Medical Care","Date: 2022-04-01<br />PercentChange:   3.2<br />IndexName: Medical Care","Date: 2022-05-01<br />PercentChange:   3.7<br />IndexName: Medical Care","Date: 2022-06-01<br />PercentChange:   4.5<br />IndexName: Medical Care","Date: 2022-07-01<br />PercentChange:   4.8<br />IndexName: Medical Care"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(0,191,196,1)","dash":"solid"},"hoveron":"points","name":"Medical Care","legendgroup":"Medical Care","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[18017,18048,18078,18109,18140,18170,18201,18231,18262,18293,18322,18353,18383,18414,18444,18475,18506,18536,18567,18597,18628,18659,18687,18718,18748,18779,18809,18840,18871,18901,18932,18962,18993,19024,19052,19083,19113,19144,19174],"y":[1.6,1.5,1.9,2.3,2.2,2.5,2.4,2.3,2.8,2.7,2.9,2.8,2.4,2.8,2.7,2.2,2.3,1.9,1.7,2.4,2.1,2.1,2.4,2.7,2.7,2.5,2.9,3.5,3.4,4.2,4.4,4.5,4.9,5.6,5.5,5.7,6.3,6.7,6.3],"text":["Date: 2019-05-01<br />PercentChange:   1.6<br />IndexName: Other Goods and Services","Date: 2019-06-01<br />PercentChange:   1.5<br />IndexName: Other Goods and Services","Date: 2019-07-01<br />PercentChange:   1.9<br />IndexName: Other Goods and Services","Date: 2019-08-01<br />PercentChange:   2.3<br />IndexName: Other Goods and Services","Date: 2019-09-01<br />PercentChange:   2.2<br />IndexName: Other Goods and Services","Date: 2019-10-01<br />PercentChange:   2.5<br />IndexName: Other Goods and Services","Date: 2019-11-01<br />PercentChange:   2.4<br />IndexName: Other Goods and Services","Date: 2019-12-01<br />PercentChange:   2.3<br />IndexName: Other Goods and Services","Date: 2020-01-01<br />PercentChange:   2.8<br />IndexName: Other Goods and Services","Date: 2020-02-01<br />PercentChange:   2.7<br />IndexName: Other Goods and Services","Date: 2020-03-01<br />PercentChange:   2.9<br />IndexName: Other Goods and Services","Date: 2020-04-01<br />PercentChange:   2.8<br />IndexName: Other Goods and Services","Date: 2020-05-01<br />PercentChange:   2.4<br />IndexName: Other Goods and Services","Date: 2020-06-01<br />PercentChange:   2.8<br />IndexName: Other Goods and Services","Date: 2020-07-01<br />PercentChange:   2.7<br />IndexName: Other Goods and Services","Date: 2020-08-01<br />PercentChange:   2.2<br />IndexName: Other Goods and Services","Date: 2020-09-01<br />PercentChange:   2.3<br />IndexName: Other Goods and Services","Date: 2020-10-01<br />PercentChange:   1.9<br />IndexName: Other Goods and Services","Date: 2020-11-01<br />PercentChange:   1.7<br />IndexName: Other Goods and Services","Date: 2020-12-01<br />PercentChange:   2.4<br />IndexName: Other Goods and Services","Date: 2021-01-01<br />PercentChange:   2.1<br />IndexName: Other Goods and Services","Date: 2021-02-01<br />PercentChange:   2.1<br />IndexName: Other Goods and Services","Date: 2021-03-01<br />PercentChange:   2.4<br />IndexName: Other Goods and Services","Date: 2021-04-01<br />PercentChange:   2.7<br />IndexName: Other Goods and Services","Date: 2021-05-01<br />PercentChange:   2.7<br />IndexName: Other Goods and Services","Date: 2021-06-01<br />PercentChange:   2.5<br />IndexName: Other Goods and Services","Date: 2021-07-01<br />PercentChange:   2.9<br />IndexName: Other Goods and Services","Date: 2021-08-01<br />PercentChange:   3.5<br />IndexName: Other Goods and Services","Date: 2021-09-01<br />PercentChange:   3.4<br />IndexName: Other Goods and Services","Date: 2021-10-01<br />PercentChange:   4.2<br />IndexName: Other Goods and Services","Date: 2021-11-01<br />PercentChange:   4.4<br />IndexName: Other Goods and Services","Date: 2021-12-01<br />PercentChange:   4.5<br />IndexName: Other Goods and Services","Date: 2022-01-01<br />PercentChange:   4.9<br />IndexName: Other Goods and Services","Date: 2022-02-01<br />PercentChange:   5.6<br />IndexName: Other Goods and Services","Date: 2022-03-01<br />PercentChange:   5.5<br />IndexName: Other Goods and Services","Date: 2022-04-01<br />PercentChange:   5.7<br />IndexName: Other Goods and Services","Date: 2022-05-01<br />PercentChange:   6.3<br />IndexName: Other Goods and Services","Date: 2022-06-01<br />PercentChange:   6.7<br />IndexName: Other Goods and Services","Date: 2022-07-01<br />PercentChange:   6.3<br />IndexName: Other Goods and Services"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(0,169,255,1)","dash":"solid"},"hoveron":"points","name":"Other Goods and Services","legendgroup":"Other Goods and Services","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[18017,18048,18078,18109,18140,18170,18201,18231,18262,18293,18322,18353,18383,18414,18444,18475,18506,18536,18567,18597,18628,18659,18687,18718,18748,18779,18809,18840,18871,18901,18932,18962,18993,19024,19052,19083,19113,19144,19174],"y":[1.2,0.8,0.7,1.2,1,1.8,1.9,1.5,1.4,1.5,1.3,0.9,2.1,1.6,1,1.3,1.5,1.3,1.3,0.9,0.1,0.8,1.1,2.1,1.6,2.4,3.5,3.4,3.5,3.9,3.2,3.3,4.7,5,4.8,4.3,4.5,4.6,4.4],"text":["Date: 2019-05-01<br />PercentChange:   1.2<br />IndexName: Recreation","Date: 2019-06-01<br />PercentChange:   0.8<br />IndexName: Recreation","Date: 2019-07-01<br />PercentChange:   0.7<br />IndexName: Recreation","Date: 2019-08-01<br />PercentChange:   1.2<br />IndexName: Recreation","Date: 2019-09-01<br />PercentChange:   1.0<br />IndexName: Recreation","Date: 2019-10-01<br />PercentChange:   1.8<br />IndexName: Recreation","Date: 2019-11-01<br />PercentChange:   1.9<br />IndexName: Recreation","Date: 2019-12-01<br />PercentChange:   1.5<br />IndexName: Recreation","Date: 2020-01-01<br />PercentChange:   1.4<br />IndexName: Recreation","Date: 2020-02-01<br />PercentChange:   1.5<br />IndexName: Recreation","Date: 2020-03-01<br />PercentChange:   1.3<br />IndexName: Recreation","Date: 2020-04-01<br />PercentChange:   0.9<br />IndexName: Recreation","Date: 2020-05-01<br />PercentChange:   2.1<br />IndexName: Recreation","Date: 2020-06-01<br />PercentChange:   1.6<br />IndexName: Recreation","Date: 2020-07-01<br />PercentChange:   1.0<br />IndexName: Recreation","Date: 2020-08-01<br />PercentChange:   1.3<br />IndexName: Recreation","Date: 2020-09-01<br />PercentChange:   1.5<br />IndexName: Recreation","Date: 2020-10-01<br />PercentChange:   1.3<br />IndexName: Recreation","Date: 2020-11-01<br />PercentChange:   1.3<br />IndexName: Recreation","Date: 2020-12-01<br />PercentChange:   0.9<br />IndexName: Recreation","Date: 2021-01-01<br />PercentChange:   0.1<br />IndexName: Recreation","Date: 2021-02-01<br />PercentChange:   0.8<br />IndexName: Recreation","Date: 2021-03-01<br />PercentChange:   1.1<br />IndexName: Recreation","Date: 2021-04-01<br />PercentChange:   2.1<br />IndexName: Recreation","Date: 2021-05-01<br />PercentChange:   1.6<br />IndexName: Recreation","Date: 2021-06-01<br />PercentChange:   2.4<br />IndexName: Recreation","Date: 2021-07-01<br />PercentChange:   3.5<br />IndexName: Recreation","Date: 2021-08-01<br />PercentChange:   3.4<br />IndexName: Recreation","Date: 2021-09-01<br />PercentChange:   3.5<br />IndexName: Recreation","Date: 2021-10-01<br />PercentChange:   3.9<br />IndexName: Recreation","Date: 2021-11-01<br />PercentChange:   3.2<br />IndexName: Recreation","Date: 2021-12-01<br />PercentChange:   3.3<br />IndexName: Recreation","Date: 2022-01-01<br />PercentChange:   4.7<br />IndexName: Recreation","Date: 2022-02-01<br />PercentChange:   5.0<br />IndexName: Recreation","Date: 2022-03-01<br />PercentChange:   4.8<br />IndexName: Recreation","Date: 2022-04-01<br />PercentChange:   4.3<br />IndexName: Recreation","Date: 2022-05-01<br />PercentChange:   4.5<br />IndexName: Recreation","Date: 2022-06-01<br />PercentChange:   4.6<br />IndexName: Recreation","Date: 2022-07-01<br />PercentChange:   4.4<br />IndexName: Recreation"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(199,124,255,1)","dash":"solid"},"hoveron":"points","name":"Recreation","legendgroup":"Recreation","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[18017,18048,18078,18109,18140,18170,18201,18231,18262,18293,18322,18353,18383,18414,18444,18475,18506,18536,18567,18597,18628,18659,18687,18718,18748,18779,18809,18840,18871,18901,18932,18962,18993,19024,19052,19083,19113,19144,19174],"y":[0.6,-0.7,-0.3,-1.1,-1.4,-1.4,-0.1,1.9,2.8,1.7,-2.4,-9.5,-11.1,-8.2,-5.9,-4.1,-3.2,-3.5,-3.3,-2.4,-1.3,0.6,5.8,14.9,20,21.5,19.4,17.8,16.6,18.7,21.1,21.1,20.8,21.1,22.6,19.9,19.4,19.7,16.4],"text":["Date: 2019-05-01<br />PercentChange:   0.6<br />IndexName: Transportation","Date: 2019-06-01<br />PercentChange:  -0.7<br />IndexName: Transportation","Date: 2019-07-01<br />PercentChange:  -0.3<br />IndexName: Transportation","Date: 2019-08-01<br />PercentChange:  -1.1<br />IndexName: Transportation","Date: 2019-09-01<br />PercentChange:  -1.4<br />IndexName: Transportation","Date: 2019-10-01<br />PercentChange:  -1.4<br />IndexName: Transportation","Date: 2019-11-01<br />PercentChange:  -0.1<br />IndexName: Transportation","Date: 2019-12-01<br />PercentChange:   1.9<br />IndexName: Transportation","Date: 2020-01-01<br />PercentChange:   2.8<br />IndexName: Transportation","Date: 2020-02-01<br />PercentChange:   1.7<br />IndexName: Transportation","Date: 2020-03-01<br />PercentChange:  -2.4<br />IndexName: Transportation","Date: 2020-04-01<br />PercentChange:  -9.5<br />IndexName: Transportation","Date: 2020-05-01<br />PercentChange: -11.1<br />IndexName: Transportation","Date: 2020-06-01<br />PercentChange:  -8.2<br />IndexName: Transportation","Date: 2020-07-01<br />PercentChange:  -5.9<br />IndexName: Transportation","Date: 2020-08-01<br />PercentChange:  -4.1<br />IndexName: Transportation","Date: 2020-09-01<br />PercentChange:  -3.2<br />IndexName: Transportation","Date: 2020-10-01<br />PercentChange:  -3.5<br />IndexName: Transportation","Date: 2020-11-01<br />PercentChange:  -3.3<br />IndexName: Transportation","Date: 2020-12-01<br />PercentChange:  -2.4<br />IndexName: Transportation","Date: 2021-01-01<br />PercentChange:  -1.3<br />IndexName: Transportation","Date: 2021-02-01<br />PercentChange:   0.6<br />IndexName: Transportation","Date: 2021-03-01<br />PercentChange:   5.8<br />IndexName: Transportation","Date: 2021-04-01<br />PercentChange:  14.9<br />IndexName: Transportation","Date: 2021-05-01<br />PercentChange:  20.0<br />IndexName: Transportation","Date: 2021-06-01<br />PercentChange:  21.5<br />IndexName: Transportation","Date: 2021-07-01<br />PercentChange:  19.4<br />IndexName: Transportation","Date: 2021-08-01<br />PercentChange:  17.8<br />IndexName: Transportation","Date: 2021-09-01<br />PercentChange:  16.6<br />IndexName: Transportation","Date: 2021-10-01<br />PercentChange:  18.7<br />IndexName: Transportation","Date: 2021-11-01<br />PercentChange:  21.1<br />IndexName: Transportation","Date: 2021-12-01<br />PercentChange:  21.1<br />IndexName: Transportation","Date: 2022-01-01<br />PercentChange:  20.8<br />IndexName: Transportation","Date: 2022-02-01<br />PercentChange:  21.1<br />IndexName: Transportation","Date: 2022-03-01<br />PercentChange:  22.6<br />IndexName: Transportation","Date: 2022-04-01<br />PercentChange:  19.9<br />IndexName: Transportation","Date: 2022-05-01<br />PercentChange:  19.4<br />IndexName: Transportation","Date: 2022-06-01<br />PercentChange:  19.7<br />IndexName: Transportation","Date: 2022-07-01<br />PercentChange:  16.4<br />IndexName: Transportation"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(255,97,204,1)","dash":"solid"},"hoveron":"points","name":"Transportation","legendgroup":"Transportation","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":96.5263725595944,"r":37.7952755905512,"b":109.830654729803,"l":81.1534174666523},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(44,62,80,1)","family":"","size":14.6118721461187},"title":{"text":"<b> Consumer Price Index for All Urban Consumers <\/b>","font":{"color":"rgba(44,62,80,1)","family":"","size":17.5342465753425},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[17959.15,19231.85],"tickmode":"array","ticktext":["Jun 19","Sep 19","Dec 19","Mar 20","Jun 20","Sep 20","Dec 20","Mar 21","Jun 21","Sep 21","Dec 21","Mar 22","Jun 22"],"tickvals":[18048,18140,18231,18322,18414,18506,18597,18687,18779,18871,18962,19052,19144],"categoryorder":"array","categoryarray":["Jun 19","Sep 19","Dec 19","Mar 20","Jun 20","Sep 20","Dec 20","Mar 21","Jun 21","Sep 21","Dec 21","Mar 22","Jun 22"],"nticks":null,"ticks":"outside","tickcolor":"rgba(204,204,204,1)","ticklen":3.65296803652968,"tickwidth":0.22139200221392,"showticklabels":true,"tickfont":{"color":"rgba(44,62,80,1)","family":"","size":11.689497716895},"tickangle":-60,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(204,204,204,1)","gridwidth":0.22139200221392,"zeroline":false,"anchor":"y","title":{"text":"","font":{"color":null,"family":null,"size":0}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-12.785,24.285],"tickmode":"array","ticktext":["-10","-5","0","5","10","15","20"],"tickvals":[-10,-5,1.77635683940025e-15,5,10,15,20],"categoryorder":"array","categoryarray":["-10","-5","0","5","10","15","20"],"nticks":null,"ticks":"outside","tickcolor":"rgba(204,204,204,1)","ticklen":3.65296803652968,"tickwidth":0.22139200221392,"showticklabels":true,"tickfont":{"color":"rgba(44,62,80,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(204,204,204,1)","gridwidth":0.22139200221392,"zeroline":false,"anchor":"x","title":{"text":"Year-Over-Year Percentage Change","font":{"color":"rgba(44,62,80,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":"transparent","line":{"color":"rgba(44,62,80,1)","width":0.33208800332088,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(44,62,80,1)","family":"","size":11.689497716895},"title":{"text":"IndexName","font":{"color":"rgba(44,62,80,1)","family":"","size":14.6118721461187}}},"hovermode":"closest","barmode":"relative","annotations":[{"x":1,"y":-0.1,"text":"Not Seasonally Adjusted<br />Source: U.S. Bureau of Labor Statistics<br />fred.stlouisfed.org","showarrow":false,"xref":"paper","yref":"paper","xanchor":"right","yanchor":"bottom","xshift":220,"yshift":-20,"font":{"size":10,"color":"black"}},{"x":1,"y":-0.1,"text":"Not Seasonally Adjusted<br />Source: U.S. Bureau of Labor Statistics<br />fred.stlouisfed.org","showarrow":false,"xref":"paper","yref":"paper","xanchor":"right","yanchor":"bottom","xshift":220,"yshift":-20,"font":{"size":10,"color":"black"}}]},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"dd833016e38":{"x":{},"y":{},"colour":{},"type":"scatter"}},"cur_data":"dd833016e38","visdat":{"dd833016e38":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<ul>
+<li><a href="https://fred.stlouisfed.org/series/CPIHOSNS">Consumer Price
+Index for All Urban Consumers: Housing in U.S. City Average</a></li>
+<li><a href="https://fred.stlouisfed.org/series/CPIMEDNS">Consumer Price
+Index for All Urban Consumers: Medical Care in U.S. City
+Average</a></li>
+<li><a href="https://fred.stlouisfed.org/series/CPIFABNS">Consumer Price
+Index for All Urban Consumers: Food and Beverages in U.S. City
+Average</a></li>
+<li><a href="https://fred.stlouisfed.org/series/CPIAPPNS">Consumer Price
+Index for All Urban Consumers: Apparel in U.S. City Average</a></li>
+<li><a href="https://fred.stlouisfed.org/series/CPIEDUNS">Consumer Price
+Index for All Urban Consumers: Education and Communication in U.S. City
+Average</a></li>
+<li><a href="https://fred.stlouisfed.org/series/CPIOGSNS">Consumer Price
+Index for All Urban Consumers: Other Goods and Services in U.S. City
+Average</a></li>
+<li><a href="https://fred.stlouisfed.org/series/CPIRECNS">Consumer Price
+Index for All Urban Consumers: Recreation in U.S. City Average</a></li>
+<li><a href="https://fred.stlouisfed.org/series/CPITRNNS">Consumer Price
+Index for All Urban Consumers: Transportation in U.S. City
+Average</a></li>
+</ul>
+<p><br/></p>
+<p><br/></p>
+<p><em>Data last refreshed on 2022-08-26.</em></p>
+<p><em>Document Built with R Version: 4.2.1</em></p>
+<p><br/></p>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

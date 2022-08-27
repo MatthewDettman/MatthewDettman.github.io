@@ -1,0 +1,31 @@
+name: "Matthew Dettman"
+output_dir: "."
+navbar:
+  title: "Matthew Dettman, ChFC, CLU"
+  type: inverse
+  left:
+    - text: "Main"
+      icon: fa-home
+      href: index.html
+    - text: "Resume"
+      icon: fa-user 
+      href: resume.html
+    - text: "Projects"
+      icon: fa-infinity
+      href: Projects.html
+  right:
+    - text: "Email"
+      icon: fa-envelope-o
+      href: mailto:matthew.dettman@gmail.com
+    - text: "GitHub"
+      icon: fa-github
+      href: https://github.com/MatthewDettman
+    - text: "LinkedIn"
+      icon: fa-linkedin
+      href: https://www.linkedin.com/in/matthewdettman/ 
+output:
+  html_document:
+    theme: cosmo
+    highlight: textmate
+    css: styles.css
+runtime: shiny

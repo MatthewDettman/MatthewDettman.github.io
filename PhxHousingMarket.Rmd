@@ -1,0 +1,540 @@
+---
+title: "Phoenix Housing Market Info"
+---
+
+
+This document contains some information I have been monitoring relating to real estate conditions in Phoenix, AZ.  
+
+
+
+
+```{r MortageIndices,  out.width='100%', echo=FALSE}
+library(tidyverse) #Core Data Analysis Tools
+library(tidyquant) # Quantitative Analysis
+library(plotly)  # Interactive Visualizations
+
+g <- c( "OBMMIJUMBO30YF",# Jumbo 30 Yr Fixed
+   "OBMMIFHA30YF",  # FHA_30yr
+   "OBMMIC30YF",    #  Fixed_30yr Conforming
+   "OBMMIC15YF"     # Fixed_15yr Conforming
+   
+   )  %>%
+  
+  tq_get(get  = "economic.data", from = "2022-01-01") %>% 
+  rename(Name = symbol, Date = date, Percent = price) %>% 
+  mutate(
+    Percent == Percent %>% round(1),
+    Name = case_when(
+        Name == "OBMMIJUMBO30YF" ~ "Jumbo_30yr",
+        Name == "OBMMIFHA30YF" ~   "FHA_30yr",
+        Name == "OBMMIC30YF" ~     "Fixed_30yr",
+        Name == "OBMMIC15YF" ~     "Fixed_15yr"),
+    Name = as_factor(Name)) %>%
+    
+  na.omit %>%
+  
+  ## Data Visualization
+  ggplot(aes(x=Date, y=Percent, color=Name)) +
+  geom_line() +
+  
+  # Formatting
+    labs(
+        title = "Optimal Blue: Mortgage Rate Indices",
+        x = "Date",
+        y = "Percent",
+        caption = "Optimal Blue, retrieved from FRED:\nFederal Reserve Bank of St. Louis\nhttps://fred.stlouisfed.org") +
+    
+    theme_tq() +
+    theme(
+        legend.position = "right",
+        plot.title = element_text(face = "bold"),
+        axis.title.x = element_blank(),
+        plot.caption = element_text(face = "italic"),
+        axis.text.x = element_text(angle=30, hjust=.5),
+        plot.margin = margin(1,1,1.5,1.2, "cm")) + 
+  scale_x_date(date_breaks = "1 month", date_labels = "%m-%y") +
+  scale_y_continuous(breaks = seq(0,8,.5))
+## plot 
+plotly::ggplotly(g, tooltip = c("Date", "Percent")) %>% 
+  layout(annotations = 
+ list(x = 1, y = -0.1, 
+      text = str_glue("Percent, Not Seasonally Adjusted, Source: Optimal Blue, retreived from  fred.stlouisfed.org"), 
+      showarrow = F, xref='paper', yref='paper', 
+      xanchor='bottom', yanchor='bottom', xshift=0, yshift=-30,
+      font=list(size=9, color="black")) 
+ )
+```
+
+ - [30-Year Fixed Rate Jumbo Mortgage Index](https://fred.stlouisfed.org/series/OBMMIJUMBO30YF)
+ - [30-Year Fixed Rate FHA Mortgage Index](https://fred.stlouisfed.org/series/OBMMIFHA30YF)
+ - [30-Year Fixed Rate Conforming Mortgage Index](https://fred.stlouisfed.org/series/OBMMIC30YF)
+ - [15-Year Fixed Rate Conforming Mortgage Index](https://fred.stlouisfed.org/series/OBMMIC15YF)
+
+<br/>
+
+
+
+```{r MortageRates,  out.width='100%', echo=FALSE}
+
+library(tidyverse) #Core Data Analysis Tools
+library(tidyquant) # Quantitative Analysis
+library(plotly)  # Interactive Visualizations
+
+
+g <- c( "MORTGAGE5US", # mortgageARM
+   "MORTGAGE15US", # mortgage15
+   "MORTGAGE30US",  # mortgage30
+   "FEDFUNDS")  %>% # Federal Funds Rate
+  
+  ## 
+  tq_get(get  = "economic.data", from = "2020-01-01") %>% 
+  rename(Name = symbol, Date = date, Percentage = price) %>% 
+  mutate(
+    Name = case_when(
+        Name == "MORTGAGE5US" ~ "ARM_5yr",
+        Name == "MORTGAGE15US" ~ "Mortgage_15yr",
+        Name == "MORTGAGE30US" ~ "Mortgage_30yr",
+        Name == "FEDFUNDS" ~ "FedFundsRate"),
+    Name = as_factor(Name)) %>%
+  
+  ## Data Visualization
+  ggplot(aes(x=Date, y=Percentage, color=Name)) +
+  geom_line() +
+  
+  # Formatting
+    labs(
+        title = "Freddie Mac: Average US Mortgage Rates",
+        x = "Date",
+        y = "Percentage",
+        caption = "Freddie Mac, retrieved from FRED:\nFederal Reserve Bank of St. Louis\nhttps://fred.stlouisfed.org") +
+    theme_tq() +
+    theme(
+        legend.position = "right",
+        axis.title.x = element_blank(),
+        plot.title = element_text(face = "bold"),
+        plot.caption = element_text(face = "italic"),
+        axis.text.x = element_text(angle=30, hjust=.5),
+        plot.margin = margin(1,1,1.5,1.2, "cm")) + 
+  scale_x_date(date_breaks = "3 month", date_labels = "%m-%y") + 
+  scale_y_continuous(breaks = seq(0,8,.5))
+
+## plot 
+plotly::ggplotly(g, tooltip = c("Date", "Percentage")) %>%  
+  layout(annotations = 
+ list(x = 1, y = -0.1, 
+      text = str_glue("Percent, Not Seasonally Adjusted, Source: Freddie Mac, retreived from fred.stlouisfed.org"), 
+      showarrow = F, xref='paper', yref='paper', 
+      xanchor='bottom', yanchor='bottom', xshift=0, yshift=-35,
+      font=list(size=9, color="black")) 
+ )
+```
+
+Data Source:
+
+ - [5 1-Year Adjustable Rate Mortgage Average](https://fred.stlouisfed.org/series/MORTGAGE5US)
+ - [15-Year Fixed Rate Mortgage Average in the United States](https://fred.stlouisfed.org/series/MORTGAGE15US)
+ - [30-Year Fixed Rate Mortgage Average in the United States](https://fred.stlouisfed.org/series/MORTGAGE30US)
+ - [Federal Funds Effective Rate](https://fred.stlouisfed.org/series/FEDFUNDS)
+
+<br/>
+
+
+
+```{r MarketHotness, out.width='100%', echo=FALSE}
+
+library(tidyverse) #Core Data Analysis Tools
+library(tidyquant) # Quantitative Analysis
+library(plotly)  # Interactive Visualizations
+
+
+g <- c( "HOSCMSA38060", # Hotness Score
+   "SUSCMSA38060", # Supply Score
+   "DESCMSA38060" # Demand Score
+   )  %>%
+  
+  ## 
+  tq_get(get  = "economic.data", from = "2020-01-01") %>% 
+  rename(Name = symbol, Date = date, Score = price) %>%
+  group_by(Name) %>%
+  mutate(
+    PercentChange =((Score/lag(Score,2)-1)*100) %>% round(1),
+    Name = case_when(
+        Name == "HOSCMSA38060" ~ "Hotness Score",
+        Name == "SUSCMSA38060" ~ "Supply Score",
+        Name == "DESCMSA38060" ~ "Demand Score"
+        ),
+    Name = as_factor(Name))  %>%
+  na.omit %>% ungroup(Name) %>% 
+  
+  ## Data Visualization
+  ggplot(aes(x=Date, y=PercentChange, color=Name)) +
+  geom_line() +
+  
+  # Formatting
+    labs(
+        title = "Market Hotness Scores",
+        x = "Date",
+        y = "MoM Percentage Change",
+        caption = "Realtor.com, retrieved from FRED:\nFederal Reserve Bank of St. Louis\nhttps://fred.stlouisfed.org") +
+    theme_tq() +
+    theme(
+        legend.position = "right",
+        axis.title.x = element_blank(),
+        plot.title = element_text(face = "bold"),
+        plot.caption = element_text(face = "italic"),
+        axis.text.x = element_text(angle=30, hjust=.5),
+        plot.margin = margin(1,1,1.5,1.2, "cm")) + 
+  scale_x_date(date_breaks = "3 month", date_labels = "%m-%y")#+ 
+  #scale_y_continuous(breaks = seq(0,8,.5))
+
+## plot 
+plotly::ggplotly(g, tooltip = c("Date", "PercentChange")) %>%  
+  layout(annotations = 
+ list(x = 1, y = -0.1, 
+      text = str_glue("Score, Not Seasonally Adjusted, Source: Realtor.com, retreived from fred.stlouisfed.org"), 
+      showarrow = F, xref='paper', yref='paper', 
+      xanchor='bottom', yanchor='bottom', xshift=0, yshift=-35,
+      font=list(size=9, color="black")) 
+ )
+```
+
+ - [Market Hotness: Hotness Score in Phoenix-Mesa-Scottsdale, AZ](https://fred.stlouisfed.org/series/HOSCMSA38060)
+ - [Market Hotness: Supply Score in Phoenix-Mesa-Scottsdale, AZ](https://fred.stlouisfed.org/series/SUSCMSA38060)
+ - [Market Hotness: Demand Score in Phoenix-Mesa-Scottsdale, AZ](https://fred.stlouisfed.org/series/DESCMSA38060)
+<br/>
+
+
+
+```{r HousePrices, out.width='100%', echo=FALSE}
+
+library(tidyverse) #Core Data Analysis Tools
+library(tidyquant) # Quantitative Analysis
+library(plotly)  # Interactive Visualizations
+
+
+g <- c( "ATNHPIUS38060Q", # PHX Metro 
+   "USSTHPI", # United States 
+   "AZSTHPI")  %>% # Arizona 
+  
+  ## 
+  tq_get(get  = "economic.data", from = "2000-01-01") %>% 
+  rename(Name = symbol, Date = date, Index = price) %>%
+  group_by(Name) %>%
+  mutate(
+    PercentChange =((Index/lag(Index,4)-1)*100) %>% round(1),
+    Name = case_when(
+        Name == "ATNHPIUS38060Q" ~ "Phx Metro",
+        Name == "USSTHPI" ~ "United Sates",
+        Name == "AZSTHPI" ~ "Arizona"),
+    Name = as_factor(Name)) %>%
+  na.omit %>% ungroup(Name) %>% 
+  
+  
+  ## Data Visualization
+  ggplot(aes(x=Date, y=PercentChange, color=Name)) +
+  geom_line() +
+  
+  # Formatting
+    labs(
+        title = "All-Transactions House Price Indices",
+        x = "Date",
+        y = "YoY Percentage Change",
+        caption = "Freddie Mac, retrieved from FRED:\nFederal Reserve Bank of St. Louis\nhttps://fred.stlouisfed.org") +
+    theme_tq() +
+    theme(
+        legend.position = "right",
+        axis.title.x = element_blank(),
+        plot.title = element_text(face = "bold"),
+        plot.caption = element_text(face = "italic"),
+        axis.text.x = element_text(angle=30, hjust=.5),
+        plot.margin = margin(1,1,1.5,1.2, "cm")) + 
+  scale_x_date(date_breaks = "2 year", date_labels = "%Y") #+ 
+ # scale_y_continuous(breaks = seq(0,8,.5))
+
+## plot 
+plotly::ggplotly(g, tooltip = c("Date", "PercentChange")) %>%  
+  layout(annotations = 
+ list(x = 1, y = -0.1, 
+      text = str_glue("Index, Not Seasonally Adjusted, Source: U.S. Federal Housing Finance Agency, retreived from fred.stlouisfed.org"), 
+      showarrow = F, xref='paper', yref='paper', 
+      xanchor='bottom', yanchor='bottom', xshift=0, yshift=-40,
+      font=list(size=8, color="black")) 
+ )
+```
+
+Data Source:
+
+ - [All-Transactions House Price Index for Phoenix-Mesa-Chandler, AZ](https://fred.stlouisfed.org/series/ATNHPIUS38060Q)
+ - [All-Transactions House Price Index for Arizona](https://fred.stlouisfed.org/series/AZSTHPI)
+ - [All-Transactions House Price Index for the United States](https://fred.stlouisfed.org/series/USSTHPI)
+
+
+
+
+<br/>
+
+
+
+```{r Avg List Prices, out.width='100%', echo=FALSE}
+
+
+library(tidyverse) #Core Data Analysis Tools
+library(tidyquant) # Quantitative Analysis
+library(plotly)  # Interactive Visualizations
+
+
+g <- c( "AVELISPRIMM38060", # PHX Metro 
+   "AVELISPRIMMAZ", # Arizona
+   "AVELISPRIMMUS")  %>% # US 
+  
+  ## 
+  tq_get(get  = "economic.data", from = "2020-01-01") %>% 
+  rename(Name = symbol, Date = date, Percent = price) %>%
+  group_by(Name) %>%
+  mutate(
+    Name = case_when(
+        Name == "AVELISPRIMM38060" ~ "Phx Metro",
+        Name == "AVELISPRIMMAZ" ~ "Arizona",
+        Name == "AVELISPRIMMUS" ~ "United States"),
+    Name = as_factor(Name)) %>%
+  na.omit %>% ungroup(Name) %>% 
+  
+  
+  ## Data Visualization
+  ggplot(aes(x=Date, y=Percent, color=Name)) +
+  geom_line() +
+  
+  # Formatting
+    labs(
+        title = "Housing Inventory: Average Listing Price",
+        x = "Date",
+        y = "Month-Over-Month Percentage Change",
+        caption = "Realtor.com, retrieved from FRED:\nFederal Reserve Bank of St. Louis\nhttps://fred.stlouisfed.org") +
+    theme_tq() +
+    theme(
+        legend.position = "right",
+        axis.title.x = element_blank(),
+        plot.title = element_text(face = "bold"),
+        plot.caption = element_text(face = "italic"),
+        axis.text.x = element_text(angle=30, hjust=.5),
+        plot.margin = margin(1,1,1.5,1.2, "cm")) + 
+  scale_x_date(date_breaks = "3 month", date_labels = "%m-%y") #+ 
+ # scale_y_continuous(breaks = seq(0,8,.5))
+
+## plot 
+plotly::ggplotly(g, tooltip = c("Date", "Percent")) %>%  
+  layout(annotations = 
+ list(x = 1, y = -0.1, 
+      text = str_glue("Percent, Not Seasonally Adjusted, Source: Realtor.com, retreived from fred.stlouisfed.org"), 
+      showarrow = F, xref='paper', yref='paper', 
+      xanchor='bottom', yanchor='bottom', xshift=0, yshift=-35,
+      font=list(size=8, color="black")) 
+ )
+```
+
+
+ - [Housing Inventory: Average Listing Price Month-Over-Month in Phoenix-Mesa-Scottsdale, AZ](https://fred.stlouisfed.org/series/AVELISPRIMM38060) 
+ - [Housing Inventory: Average Listing Price Month-Over-Month in Arizona](https://fred.stlouisfed.org/series/AVELISPRIMMAZ)
+ - [Housing Inventory: Average Listing Price Month-Over-Month in the United States]()
+
+<br/>
+
+
+```{r Day on Market, out.width='100%', echo=FALSE}
+
+library(tidyverse) #Core Data Analysis Tools
+library(tidyquant) # Quantitative Analysis
+library(plotly)  # Interactive Visualizations
+
+
+g <- c( "MEDDAYONMARMM38060", # PHX Metro 
+   "MEDDAYONMARMMAZ", # Arizona
+   "MEDDAYONMARMMUS")  %>% # US 
+  
+  ## 
+  tq_get(get  = "economic.data", from = "2020-01-01") %>% 
+  rename(Name = symbol, Date = date, Percent = price) %>%
+  group_by(Name) %>%
+  mutate(
+    Name = case_when(
+        Name == "MEDDAYONMARMM38060" ~ "Phx Metro",
+        Name == "MEDDAYONMARMMAZ" ~ "Arizona",
+        Name == "MEDDAYONMARMMUS" ~ "United States"),
+    Name = as_factor(Name)) %>%
+  na.omit %>% ungroup(Name) %>% 
+  
+  
+  ## Data Visualization
+  ggplot(aes(x=Date, y=Percent, color=Name)) +
+  geom_line() +
+  
+  # Formatting
+    labs(
+        title = "Housing Inventory: Median Days on Market",
+        x = "Date",
+        y = "Month-Over-Month Percentage Change",
+        caption = "Realtor.com, retrieved from FRED:\nFederal Reserve Bank of St. Louis\nhttps://fred.stlouisfed.org") +
+    theme_tq() +
+    theme(
+        legend.position = "right",
+        axis.title.x = element_blank(),
+        plot.title = element_text(face = "bold"),
+        plot.caption = element_text(face = "italic"),
+        axis.text.x = element_text(angle=30, hjust=.5),
+        plot.margin = margin(1,1,1.5,1.2, "cm")) + 
+  scale_x_date(date_breaks = "3 month", date_labels = "%m-%y") #+ 
+ # scale_y_continuous(breaks = seq(0,8,.5))
+
+## plot 
+plotly::ggplotly(g, tooltip = c("Date", "Percent")) %>%  
+  layout(annotations = 
+ list(x = 1, y = -0.1, 
+      text = str_glue("Percent, Not Seasonally Adjusted, Source: Realtor.com, retreived from fred.stlouisfed.org"), 
+      showarrow = F, xref='paper', yref='paper', 
+      xanchor='bottom', yanchor='bottom', xshift=0, yshift=-35,
+      font=list(size=8, color="black")) 
+ )
+```
+
+
+ - [Housing Inventory: Median Days on Market Month-Over-Month in Phoenix-Mesa-Scottsdale, AZ](https://fred.stlouisfed.org/series/MEDDAYONMARMM38060) 
+ - [Housing Inventory: Median Days on Market Month-Over-Month in Arizona](https://fred.stlouisfed.org/series/MEDDAYONMARMMAZ)
+ - [Housing Inventory: Median Days on Market Month-Over-Month in the United States](https://fred.stlouisfed.org/series/MEDDAYONMARMMUS)
+ 
+ 
+
+<br/>
+
+
+```{r PriceReducedCount, out.width='100%', echo=FALSE}
+
+library(tidyverse) #Core Data Analysis Tools
+library(tidyquant) # Quantitative Analysis
+library(plotly)  # Interactive Visualizations
+library(timetk)
+
+
+g <- c( "PRIREDCOU38060", # Phoenix_Metro
+   "PRIREDCOU4013", # Maricopa_Co
+   "PRIREDCOUAZ")  %>% #  # Arizona
+  
+  tq_get(get  = "economic.data", from = "2018-01-01") %>% 
+  rename(Name = symbol, Date = date, Level = price) %>% 
+  mutate(
+    Name = case_when(
+        Name == "PRIREDCOU38060" ~ "Phx_Metro",
+        Name == "PRIREDCOU4013" ~ "Maricopa_Co",
+        Name == "PRIREDCOUAZ" ~ "Arizona"),
+    Name = as_factor(Name)) %>%
+  
+  ## Data Visualization
+  ggplot(aes(x=Date, y=Level, color=Name)) +
+  geom_line() +
+  # Formatting
+    labs(
+        title = "Housing Inventory:Price Reduced Count",
+        x = "",
+        y = "Count",
+        caption = "Realtor.com, retrieved from FRED:\nFederal Reserve Bank of St. Louis\nhttps://fred.stlouisfed.org") +
+    
+    theme_tq() +
+    theme(
+        legend.position = "right",
+        plot.title = element_text(face = "bold"),
+        plot.caption = element_text(face = "italic"),
+        axis.text.x = element_text(angle=30, hjust=.5),
+        plot.margin = margin(1,1,1.5,1.2, "cm")) + 
+  scale_x_date(date_breaks = "6 month", date_labels = "%m-%y") +
+  scale_y_continuous(labels = scales::comma)
+
+## plot 
+plotly::ggplotly(g, tooltip = c("Date", "Level")) %>%  
+  layout(annotations = 
+ list(x = 1, y = -0.1, 
+      text = str_glue("Level, Not Seasonally Adjusted, Source: Realtor.com, retreived from fred.stlouisfed.org"), 
+      showarrow = F, xref='paper', yref='paper', 
+      xanchor='bottom', yanchor='bottom', xshift=0, yshift=-35,
+      font=list(size=9, color="black"))
+  )
+```
+
+Data Source:
+
+
+ - [Housing Inventory: Price Reduced Count in Phoenix-Mesa-Scottsdale, AZ (CBSA)](https://fred.stlouisfed.org/series/PRIREDCOU38060)
+ - [Housing Inventory: Price Reduced Count in Maricopa County, AZ](https://fred.stlouisfed.org/series/PRIREDCOU4013)
+ - [Housing Inventory: Price Reduced Count in Arizona](https://fred.stlouisfed.org/series/PRIREDCOUAZ)
+ 
+
+
+<br/>
+
+
+
+```{r InventoryStatus, out.width='100%', echo=FALSE}
+
+library(tidyverse) #Core Data Analysis Tools
+library(tidyquant) # Quantitative Analysis
+library(plotly)  # Interactive Visualizations
+
+
+
+g <- c( "ACTLISCOU38060", # Active Listing Count PHX
+   "NEWLISCOU38060", # New Listing Count PHX
+   "PENLISCOU38060")  %>% #  Pending Listing Count PHX
+  
+  tq_get(get  = "economic.data", from = "2016-01-01") %>% 
+  rename(Name = symbol, Date = date, Level = price) %>% 
+  mutate(
+    Name = case_when(
+        Name == "ACTLISCOU38060" ~ "Active",
+        Name == "NEWLISCOU38060" ~ "New",
+        Name == "PENLISCOU38060" ~ "Pending"),
+    Name = as_factor(Name)) %>%
+  
+  ## Data Visualization
+  ggplot(aes(x=Date, y=Level, color=Name)) +
+  geom_line() +
+  
+  # Formatting
+    labs(
+        title = "Housing Inventory: Listing Count by Status in Phoenix Metro Area",
+        x = "",
+        y = "Count",
+        caption = "Realtor.com, retrieved from FRED:\nFederal Reserve Bank of St. Louis\nhttps://fred.stlouisfed.org") +
+    
+    theme_tq() +
+    theme(
+        legend.position = "right",
+        plot.title = element_text(face = "bold"),
+        plot.caption = element_text(face = "italic"),
+        axis.text.x = element_text(angle=30, hjust=.5),
+        plot.margin = margin(1,1,1.5,1.2, "cm")) + 
+  scale_x_date(date_breaks = "6 month", date_labels = "%m-%y") +
+  scale_y_continuous(labels = scales::comma)
+
+## plot 
+plotly::ggplotly(g, tooltip = c("Date", "Level")) %>%  
+  layout(annotations = 
+ list(x = 1, y = -0.1, 
+      text = str_glue("Level, Not Seasonally Adjusted, Source: Realtor.com, retreived from fred.stlouisfed.org"), 
+      showarrow = F, xref='paper', yref='paper', 
+      xanchor='bottom', yanchor='bottom', xshift=0, yshift=-35,
+      font=list(size=9, color="black"))
+  )
+```
+
+Data Source: 
+
+ - [Housing Inventory: Active Listing Count  in Phoenix-Mesa-Scottsdale](https://fred.stlouisfed.org/series/ACTLISCOU38060)  
+ - [Housing Inventory: New Listing Count in Phoenix-Mesa-Scottsdale, AZ](https://fred.stlouisfed.org/series/NEWLISCOU38060)  
+ - [Housing Inventory: Pending Listing Count in Phoenix-Mesa-Scottsdale, AZ](https://fred.stlouisfed.org/series/PENLISCOU38060)
+ 
+
+<br/>
+
+
+
+*Data last refreshed on `r Sys.Date()`.*
+
+*Document Built with R Version: `r getRversion()`*

@@ -1,0 +1,136 @@
+---
+title: "updateR"
+author: "Matthew Dettman"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Builds Website 
+
+```{r}
+library(rmarkdown)
+rmarkdown::render_site(encoding = 'UTF-8')
+```
+
+# git changes
+
+```{bash, eval=FALSE}
+git add .
+git commit -m "some changes"
+git push --all
+
+# paste in terminal
+```
+
+`sessionInfo()`
+`code_folding: hide`
+
+
+```{r, include=FALSE}
+
+# SCRAPS
+# sector_prices <- c( 
+# 
+# "^GSPC",     #  S&P 500 Index
+# "^GSPE",     #  S&P 500 Energy 	
+# "^SP500-40", #	S&P 500 Financials 	
+# "^SP500-35", #  S&P 500 Health Care	
+# "^SP500-60", #  S&P Real Estate
+# "^SP500-15", #	S&P 500 Materials	
+# "^SP500-20", #	S&P 500 Industrials
+# "^SP500-25", #	S&P 500 Consumer Discretionary
+# "^SP500-30", #  S&P 500 Consumer Staples
+# "^SP500-45", #	S&P 500 Information Technology
+# "^SP500-50", #	S&P 500 Telecommunication Services
+# "^SP500-55"  #  S&P 500 Utilities
+#   )  %>%   
+#   tq_get(get = "stock.prices", from = (today()-365))
+# 
+# sector_list <- tribble(
+#   
+#   ~ symbol,  ~ IndexName,
+#   "^GSPC",     "SP500",                   # S&P 500 Index
+#   "^GSPE",     "Energy",                  # S&P 500 Energy 	  
+#   "^SP500-40", "Financials",	            # S&P 500 Real Estate	
+#   "^SP500-35", "HealthCare",              # S&P 500 Materials	
+#   "^SP500-60", "RealEstate",	            # S&P Real Estate
+#   "^SP500-15", "Materials",	              # S&P Materials
+#   "^SP500-20", "Industrials",             # S&P Industrials
+#   "^SP500-25", "ConsumerDiscretionary",   # S&P Consumer Discretionary
+#   "^SP500-30", "ConsumerStaples",         # S&P Consumer Staples
+#   "^SP500-45", "InformationTechnology",   # S&P Information Technology
+#   "^SP500-50", "CommunicationServices",   # S&P Communication Services
+#   "^SP500-55", "Utilities")               # S&P Utilities
+# 
+# SECTORS <- sector_prices %>% left_join(sector_list,by="symbol")
+
+
+# 
+#   
+#   <!-- ## First we will create the daily returns.   -->
+#   <!-- DailyReturns <- SECTORS %>% -->
+#     <!--     group_by(IndexName) %>% -->
+#     <!--     tq_transmute(select     = close,  -->
+#                             <!--                  mutate_fun = periodReturn,  -->
+#                             <!--                  period     = "daily",  -->
+#                             <!--                  col_rename = "DailyReturn") %>%  -->
+#     <!--   ungroup(IndexName) %>%  -->
+#     <!--   mutate( -->
+#                      <!--     DailyReturn = DailyReturn %>% round(2) -->
+#                      <!--   ) -->
+#     
+#     <!-- ## Now we will create the cumulative returns.   -->
+#     <!-- DailyReturnsCumulative <- DailyReturns %>% -->
+#       <!--   group_by(IndexName) %>%  -->
+#       <!--   mutate( -->
+#                        <!--     ReturnCumulative = (cumprod(1 + DailyReturn))-1  %>% round(2) -->
+#                        <!--     ) %>%  -->
+#       <!--   ungroup(IndexName) -->
+#       
+#       <!-- Sector365plot <- ggplot(data = DailyReturnsCumulative, aes(x = date, y = ReturnCumulative, color = IndexName)) +  -->
+#         <!--   geom_line() +  -->
+#         <!--   scale_y_continuous(labels = scales::percent) + -->
+#         <!--   ylab("Daily Return (Closing Prices)") +  -->
+#         <!--   ggtitle("365 Day Sector Index Cumulative Returns") -->
+#         <!-- ggplotly(Sector365plot) -->
+#         <!-- ``` -->
+#         
+
+
+
+
+
+# 
+# 
+# ## First we will create the daily returns.
+# DailyReturns <- SECTORS %>%
+#   group_by(IndexName) %>%
+#   tq_transmute(select     = close,
+#                mutate_fun = periodReturn,
+#                period     = "daily",
+#                col_rename = "DailyReturn") %>%
+#   ungroup(IndexName) %>%
+#   mutate(
+#     DailyReturn = DailyReturn %>% round(2)
+#   )
+# 
+# ## Now we will create the cumulative returns.
+# DailyReturnsCumulative <- DailyReturns %>%
+#   group_by(IndexName) %>%
+#   mutate(
+#     ReturnCumulative = (cumprod(1 + DailyReturn))-1  %>% round(2)
+#   ) %>%
+#   ungroup(IndexName)
+# 
+# Sector365plot <- ggplot(data = DailyReturnsCumulative, aes(x = date, y = ReturnCumulative, color = IndexName)) +
+#   geom_line() +
+#   scale_y_continuous(labels = scales::percent) +
+#   ylab("Daily Return (Closing Prices)") +
+#   ggtitle("365 Day Sector Index Cumulative Returns")
+# ggplotly(Sector365plot)
+```
+
