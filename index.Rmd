@@ -1,20 +1,18 @@
-Good day, 
+Hayyyyyyyyyy!!!   
 
-I love R programming for solving problems.  I want to spend my future conducting time-series analysis and experimenting with machine learning applications.  I have been using stock charts for most of my professional career and enjoy making those and other sorts of data visualizations. 
 
-I'm focused in roles that expand that my data science skills nowadays but have worked in financial services for the last 10 years in a variety of roles:
+<br/>
 
- - Customer service roles speaking to financial advisors and clients about investment products.
- - Compliance and the auditing of financial advisors and their business operations.  
- - Supervision of financial advisor trades and transactions within client accounts.
- - Quantitative analysis of investment transactions and trends.  
  
-I graduated from the [Master of Science in Business Data Analytics](https://business.wvu.edu/academics/management-information-systems/business-data-analytics) program @ West Virginia University in August of 2021.   I loved the program, and you should check it out if that is something that interests you.  
-
- - It was rated # 6 in Fortune's [Best Online Master's in Business Analytics Programs in 2022](https://fortune.com/education/business-analytics/masters/rankings/best-online-masters-in-business-analytics/)
+ - [WVU Master of Science in Business Data Analytics Info](https://business.wvu.edu/academics/management-information-systems/business-data-analytics)
+ - [Best Online Master's in Business Analytics Programs in 2022](https://fortune.com/education/business-analytics/masters/rankings/best-online-masters-in-business-analytics/)
 
 <br/>
 
 *Document Built with R Version: `r getRversion()`*
 
 <br/>
+
+
+
+ - [Good Links for R](https://www.tidyverse.org/)

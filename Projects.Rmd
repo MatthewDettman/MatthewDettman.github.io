@@ -7,48 +7,13 @@ output: html_document
 
 <br/>
 
-## Economic Data 
 
- - These projects use `tidyquant` to extract the most recent data from [https://fred.stlouisfed.org/](https://fred.stlouisfed.org/) and plot into interactive visualizations.  
-
-<br/>
-
-#### [S&P 500 Sector Data](https://matthewdettman.github.io/Sectors.html)
-
-#### [CPI Data](https://matthewdettman.github.io/CPI.html)
-
-#### [Phoenix Housing Market Info](https://matthewdettman.github.io/PhxHousingMarket.html)
-
-<br/>
-
-## Shiny Apps
-
-<br/>
-
-#### [Unemployment App](https://dettman.shinyapps.io/UnemploymentApp/)
+#### [Unemployment Shiny App](https://dettman.shinyapps.io/UnemploymentApp/)
 
  - This app uses `tidyquant` to fetch the most recent state-level UNRATE data from FRED. The app subtracts the oldest UNRATE from the newer rate to populate the interactive choropleth map made with `plotly`.
 
 <br/>
 
-#### [Bike Sales Dashboard](https://dettman.shinyapps.io/Sales_Dashboard_Forecast_App/) 
-
- - This app was built line by line in [Shiny Applications Part 1](https://university.business-science.io/p/ds4b-102-r-shiny-web-application-business-level-1) by Business Science University.  
-
-
-<br/>
-
-
-## Business Reporting
-
-RStudio enables me to create reproducible analyses in various formats to share the findings. You can view a sample [Business Sales Report.pdf](https://matthewdettman.github.io/files/BusinessScience_Sales_Report.pdf) that [Business Science](https://www.business-science.io/) created. I can easily create reproducible Word Documents, PDFs, HTML Pages, and Powerpoint Presentations to share reports within your organization.
-
-
-<br/>
-
- [SCHEDULE A TIME TO CHAT](https://calendly.com/matthewdettman/30min)
-
-<br/>
 
 
 

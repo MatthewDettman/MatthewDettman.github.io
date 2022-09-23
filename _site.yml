@@ -7,9 +7,6 @@ navbar:
     - text: "Main"
       icon: fa-home
       href: index.html
-    - text: "Resume"
-      icon: fa-user 
-      href: resume.html
     - text: "Projects"
       icon: fa-infinity
       href: Projects.html
