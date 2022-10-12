@@ -1,13 +1,47 @@
-Hayyyyyyyyyy!!!   
+---
+title: ""
+---
+
+<br/>
+
+I love data science, R programming, and solving business problems with technology.  
+
+
+
+<br/>
+
+Visit my new business: [Second Difference Solutions](https://www.seconddifferencesolutions.com/)
+
+<br/>
+
 
 
 <br/>
 
  
+Good Info:  
+
  - [WVU Master of Science in Business Data Analytics Info](https://business.wvu.edu/academics/management-information-systems/business-data-analytics)
  - [Best Online Master's in Business Analytics Programs in 2022](https://fortune.com/education/business-analytics/masters/rankings/best-online-masters-in-business-analytics/)
+ - [The Tidyverse](https://www.tidyverse.org/)
+ - [Business Science University](https://www.business-science.io/)
+ 
+ 
+<br/>
+
 
 <br/>
+
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+
 
 *Document Built with R Version: `r getRversion()`*
 
@@ -15,4 +49,3 @@ Hayyyyyyyyyy!!!
 
 
 
- - [Good Links for R](https://www.tidyverse.org/)

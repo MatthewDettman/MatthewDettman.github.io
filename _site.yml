@@ -7,9 +7,13 @@ navbar:
     - text: "Main"
       icon: fa-home
       href: index.html
+    - text: "Resume"
+      icon: fa-handshake
+      href: Resume.html
     - text: "Projects"
       icon: fa-infinity
       href: Projects.html
+
   right:
     - text: "Email"
       icon: fa-envelope-o

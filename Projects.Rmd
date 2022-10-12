@@ -1,9 +1,11 @@
 ---
 title: "Data Science Projects"
-output: html_document
 ---
 
 
+<br/>
+
+I should spend more time on this, but most of my time is spent working or learning new tricks.  
 
 <br/>
 
@@ -11,6 +13,22 @@ output: html_document
 #### [Unemployment Shiny App](https://dettman.shinyapps.io/UnemploymentApp/)
 
  - This app uses `tidyquant` to fetch the most recent state-level UNRATE data from FRED. The app subtracts the oldest UNRATE from the newer rate to populate the interactive choropleth map made with `plotly`.
+
+
+<br/>
+
+
+
+<br/>
+
+
+<br/>
+<br/>
+
+<br/>
+
+
+<br/>
 
 <br/>
 

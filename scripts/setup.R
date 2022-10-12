@@ -1,7 +1,40 @@
 pkgs <- c(
-  "rmarkdown",
+  "rmarkdown",      
   "tidyverse", 
-  "tidyquant",  
+  "tidyquant",
+  "plotly",
+  "blogdown",
+  "showtext",
+  "fs",
+  "config",
+  "scales", 
+  "flexdashboard",
+  "xgboost",
+  "parsnip",
+  "timetk",
+  "modeltime",
+  "lubridate",
+  "DT",
+  "Rtools",
+  "devtools",
+  "ggpmisc",
+  "showtext",
+  "bslib"
+)
+
+install.packages(pkgs)
+
+devtools::install_github("business-science/portfoliodown")
+
+
+
+install.packages("bslib")
+
+
+shinypkgs <- c(
+  "rmarkdown",      
+  "tidyverse", 
+  "tidyquant",
   "plotly",
   "blogdown",
   "showtext",
@@ -19,15 +52,9 @@ pkgs <- c(
   "modeltime",
   "lubridate",
   "DT",
-  "devtools",
-  "blogdown",
-  "portfoliodown",
-  "bslib",
   "Rtools",
-  "devtools"
+  "devtools",
+  "bslib"
 )
 
-install.packages(pkgs)
-
-
-#devtools::install_github("business-science/portfoliodown")
+install.packages(shinypkgs)

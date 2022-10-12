@@ -1,0 +1,135 @@
+---
+title: "Professional Resume"
+---
+
+<br/>
+
+### **Professional Experience**
+
+
+**Data Scientist & Owner** - Second Difference Solutions  
+Burnsville, WV - 08/2022 - Present
+
+**Data Scientist** - Harman Wealth Management  
+The Woodlands, TX - 08/2022 - Present
+
+**Analytics Specialist** - Alphalytics Research  
+The Woodlands, TX - 08/2022 - Present
+
+
+
+**Senior Data Integrity Analyst** - Advisor Group  
+Phoenix, AZ - 05/2021 - 12/2021
+
+
+
+**Regional Supervision Director** - Advisor Group  
+Phoenix, AZ - 01/2019 – 05/2021
+
+
+
+**Regional Supervision Manager** - Advisor Group  
+Phoenix, AZ - 08/2017 - 01/2019
+
+  
+
+**Investment Analyst** - Cohn Financial Group  
+Phoenix, AZ - 01/2017 - 08/2017
+
+
+
+**Branch Office Examiner** - Advisor Group  
+Phoenix, AZ - 04/2015 - 01/2017
+
+
+**Sr. Investment Specialist** - Edward Jones  
+Tempe, AZ 09/2013 - 04/2015
+
+
+
+**Insurance Service Specialist II** - Edward Jones  
+Tempe, AZ 07/2011 - 09/2013
+
+<br/>  
+
+
+### **Education**
+
+**West Virginia University** - Morgantown, WV
+
+ - Master of Science in Business Data Analytics 
+ 
+**Glenville State University** - Glenville, WV
+
+ - Bachelor of Science in Business Administration
+
+**The American College of Financial Services** - King of Prussia, PA
+
+ - Chartered Financial Consultant (ChFC)
+ - Chartered Life Underwriter (CLU)
+ 
+
+<br/> 
+ 
+### **Professional Certificates and Licenses**
+
+
+
+**Financial Industry Regulatory Authority Licenses** - "FINRA"
+
+ - Series 7 – General Securities Representative Exam
+ - Series 66 – Uniform Combined State Law Exam
+ - Series 24 – General Securities Principal Exam
+ - Series 52 – Municipal Securities Representative Exam
+ - Series 53 – Municipal Securities Principal Exam
+ - Series 4 – Registered Options Principal Exam
+
+**Arizona Department of Insurance**
+
+ - Arizona Insurance Producer License – Life, Health, and Variable Lines
+ 
+<br/> 
+ 
+### **Technical Skills**
+ 
+
+##### **Computer Programming** 
+
+ - R, RStudio, RMarkdown, and Shiny.  Some Python and SQL.  
+ 
+ 
+##### **Data Visualizations** 
+
+ - Tableau, Power BI, Shiny, ggplot, and Ploty.
+ 
+
+##### **Statistics and Modeling**
+ 
+ - Linear regression, machine learning, time-series, and forecasting.
+ 
+
+
+<br/>
+ 
+
+<br/>
+
+<br/>
+
+
+ 
+<br/>
+
+
+<br/>
+
+
+<br/>
+
+*Data last refreshed on `r Sys.Date()`.*
+
+*Document Built with R Version: `r getRversion()`*
+
+
+
+ 
