@@ -5,14 +5,14 @@ title: "Data Science Projects"
 
 <br/>
 
-I should spend more time on this, but most of my time is spent working or learning new tricks.  
+I should spend more time on this, but most of my time is spent working or learning new tricks.  I'm FINRA registered, so most projects I enjoy working on would require compliance approval for public sharing.   
 
 <br/>
 
 
 #### [Unemployment Shiny App](https://dettman.shinyapps.io/UnemploymentApp/)
 
- - This app uses `tidyquant` to fetch the most recent state-level UNRATE data from FRED. The app subtracts the oldest UNRATE from the newer rate to populate the interactive choropleth map made with `plotly`.
+ - This Shiny app fetches the most recent state-level unemployment rate and calculates the difference between the user-selected date ranges. The results are then populated into an interactive map.
 
 
 <br/>
@@ -37,7 +37,7 @@ I should spend more time on this, but most of my time is spent working or learni
 
 <br/>
 
-*Data last refreshed on `r Sys.Date()`.*
+
 
 *Document Built with R Version: `r getRversion()`*
 

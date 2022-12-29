@@ -13,7 +13,7 @@
 
 <title>Data Science Projects</title>
 
-<script src="site_libs/header-attrs-2.17/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.19/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -34,6 +34,15 @@
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VW03FQ9VPE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-VW03FQ9VPE');
+</script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -305,16 +314,17 @@ $(document).ready(function () {
 
 <p><br/></p>
 <p>I should spend more time on this, but most of my time is spent
-working or learning new tricks.</p>
+working or learning new tricks. I’m FINRA registered, so most projects I
+enjoy working on would require compliance approval for public
+sharing.</p>
 <p><br/></p>
 <div id="unemployment-shiny-app" class="section level4">
 <h4><a href="https://dettman.shinyapps.io/UnemploymentApp/">Unemployment
 Shiny App</a></h4>
 <ul>
-<li>This app uses <code>tidyquant</code> to fetch the most recent
-state-level UNRATE data from FRED. The app subtracts the oldest UNRATE
-from the newer rate to populate the interactive choropleth map made with
-<code>plotly</code>.</li>
+<li>This Shiny app fetches the most recent state-level unemployment rate
+and calculates the difference between the user-selected date ranges. The
+results are then populated into an interactive map.</li>
 </ul>
 <p><br/></p>
 <p><br/></p>
@@ -323,8 +333,7 @@ from the newer rate to populate the interactive choropleth map made with
 <p><br/></p>
 <p><br/></p>
 <p><br/></p>
-<p><em>Data last refreshed on 2022-10-12.</em></p>
-<p><em>Document Built with R Version: 4.2.1</em></p>
+<p><em>Document Built with R Version: 4.2.2</em></p>
 </div>
 
 

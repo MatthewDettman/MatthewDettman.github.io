@@ -26,6 +26,8 @@ navbar:
       href: https://www.linkedin.com/in/matthewdettman/ 
 output:
   html_document:
+    includes:
+      in_header: www/GA.html
     theme: cosmo
     highlight: textmate
     css: styles.css
